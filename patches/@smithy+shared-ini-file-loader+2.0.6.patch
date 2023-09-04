@@ -1,0 +1,18 @@
+diff --git a/node_modules/@smithy/shared-ini-file-loader/dist-es/getHomeDir.js b/node_modules/@smithy/shared-ini-file-loader/dist-es/getHomeDir.js
+index 8e97c5b..dc92149 100644
+--- a/node_modules/@smithy/shared-ini-file-loader/dist-es/getHomeDir.js
++++ b/node_modules/@smithy/shared-ini-file-loader/dist-es/getHomeDir.js
+@@ -1,10 +1,10 @@
+ import { homedir } from "os";
+ import { sep } from "path";
+-import { geteuid } from "process";
++import process from "process";
+ const homeDirCache = {};
+ const getHomeDirCacheKey = () => {
+-    if (geteuid) {
+-        return `${geteuid()}`;
++    if (process.geteuid) {
++        return `${process.geteuid()}`;
+     }
+     return "DEFAULT";
+ };
