@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const stringParts = Astro.params;
+const queryParam = Astro.url.searchParams
+
+interface SummaryResponse {
+ data:{   createdAt: string;
+    id: string;
+    originalText: string;
+    status: string;}
+}
+
+const url = stringParts.summary_id + "?" + new URLSearchParams(queryParam).toString();
+const summaryResult = await fetch(import.meta.env.PUBLIC_API_URL + "/youtube-summary/" + queryParam.get("v"));
+const summary = await summaryResult.json() as SummaryResponse;
+console.log(summary)
+const isNotFound = summaryResult.status === 404;
+---
+
+<Layout title="Welcome to Astro.">
+    {isNotFound ? (
+        <div class="flex flex-col items-center">
+            <div class="mb-4 mt-[10%] text-2xl font-bold text-gray-800">Video Not Found</div>
+            <span class="text-5xl animate-ping">🦙</span>
+        </div>
+    ) : (
+        <div class="flex flex-col items-center">
+            <div class="mb-4 mt-[10%] text-2xl font-bold text-gray-800">Summarizing YouTube Video</div>
+            <div class="flex flex-col items-center justify-center">
+                <div class="flex items-center justify-center w-24 h-24">
+                    <span class="text-5xl animate-bounce">🦙</span>
+                </div>
+                <div class="mb-4 text-lg font-bold text-gray-800">The llama is thinking...</div>
+                
+                <div class="mb-4 text-lg font-bold text-gray-800">{summary.data.status}</div>
+            </div>
+        </div>
+    )}
+</Layout>
+
+<style>
+    .animate-bounce {
+        animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+</style>

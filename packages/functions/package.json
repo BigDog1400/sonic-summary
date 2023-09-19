@@ -7,9 +7,15 @@
     "typecheck": "tsc -noEmit"
   },
   "devDependencies": {
-    "@types/node": "^20.5.9",
     "@types/aws-lambda": "^8.10.119",
-    "vitest": "^0.34.3",
-    "sst": "2.24.17"
+    "@types/node": "^20.5.9",
+    "sst": "2.24.17",
+    "vitest": "^0.34.3"
+  },
+  "dependencies": {
+    "@aws-sdk/s3-request-presigner": "^3.405.0",
+    "@distube/ytdl-core": "^4.13.0",
+    "deasync": "^0.1.28",
+    "ytdl-core": "4.9.1"
   }
 }
